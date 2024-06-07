@@ -63,5 +63,51 @@ Delete from track where track_id in (select tra from(select t.track_id as  tra f
 ALTER TABLE playlist add constraint foreign key (playlist_id) references playlist_track(playlist_id);
 ALTER TABLE artist add constraint foreign key (artist_id) references album(artist_id);
 
+CREATE TABLE album(
+album_id int PRIMARY KEY,
+title  VARCHAR(255),
+artist_id  int);
+
+CREATE TABLE media_type(
+media_type_id int PRIMARY KEY,
+media_name VARCHAR(255));
+
+CREATE TABLE genre(
+genre_id int PRIMARY KEY,
+genre_name VARCHAR(255));
+
+CREATE TABLE playlist(
+playlist_id int PRIMARY KEY,
+track_name  VARCHAR(255));
+
+select * from media_type;
+
+select * from album order by album_id ;
+
+select *from playlist order by playlist_id;
+
+ALTER TABLE playlist_track
+ADD FOREIGN KEY (playlist_id) REFERENCES playlist(playlist_id);
+
+ALTER TABLE playlist_track
+ADD FOREIGN KEY (track_id) REFERENCES track(track_id);
+
+ALTER TABLE invoice_line
+ADD FOREIGN KEY (track_id) REFERENCES track(track_id);
+
+ALTER TABLE track
+ADD FOREIGN KEY (media_type_id) REFERENCES media_type(media_type_id);
+
+ALTER TABLE track
+ADD FOREIGN KEY (genre_id) REFERENCES genre(genre_id);
+
+ALTER TABLE track
+ADD FOREIGN KEY (album_id) REFERENCES album(album_id);
+
+ALTER TABLE album
+ADD FOREIGN KEY (artist_id) REFERENCES artist(artist_id);
+
+SET FOREIGN_KEY_CHECKS=1;
+
 
 
